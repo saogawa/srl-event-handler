@@ -33,7 +33,7 @@ def event_handler_main(in_json_str):
         print (paths)
         print (options)
         print (max_learn_mac)
-        print (instance)
+        print (path_to_interface)
  
     response = {"actions": response_actions}
     return json.dumps(response)
