@@ -1,5 +1,8 @@
 import sys
 import json
+
+def count_active_entries(paths):
+    return int(paths.get("active-entries", 0 ))
  
 def get_max_entries(options):
     return int(options.get("max-entries", 1))
@@ -14,13 +17,13 @@ def event_handler_main(in_json_str):
     max_learn_mac = get_max_entries(options)
     response_actions = []
     for path in paths:
-        learn_mac = int(path.get("value"))
-        instance = path['path'].replace(' bridge-table statistics active-entries', '')
+        learn_mac = count_active_entries(path)
+        path_to_interface = path['path'].replace(' bridge-table statistics active-entries', '')
         if  learn_mac > max_learn_mac:
             response_actions.append(
                 {
                     "set-cfg-path": {
-                    "path": f"{instance} admin-state",
+                    "path": f"{path_to_interface} admin-state",
                     "value": "disable",
                     }
                 }
