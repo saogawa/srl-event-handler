@@ -1,11 +1,12 @@
 import sys
 import json
 
-def count_active_entries(paths):
-    return int(paths.get("active-entries", 0 ))
- 
+def count_active_entries(path):
+    return int(path.get("value", 0 ))
+
 def get_max_entries(options):
-    return int(options.get("max-entries", 1))
+    return int(options.get("max-entries", 0))
+
 
 # main entry function for event handler
 def event_handler_main(in_json_str):
@@ -13,32 +14,29 @@ def event_handler_main(in_json_str):
     in_json = json.loads(in_json_str)
     paths = in_json["paths"]
     options = in_json["options"]
- 
+    
     max_learn_mac = get_max_entries(options)
     response_actions = []
+
     for path in paths:
         learn_mac = count_active_entries(path)
-        path_to_interface = path['path'].replace(' bridge-table statistics active-entries', '')
+        instance = path['path'].replace(' bridge-table statistics active-entries', '')
+
         if  learn_mac > max_learn_mac:
+            if options.get("debug") == "true":
+                print ("Port shutdown = ", instance)
             response_actions.append(
                 {
                     "set-cfg-path": {
-                    "path": f"{path_to_interface} admin-state",
+                    "path": f"{instance} admin-state",
                     "value": "disable",
-                    }
+		    }
                 }
             )
- 
-    if options.get("debug") == "true":
-        print (paths)
-        print (options)
-        print (max_learn_mac)
-        print (path_to_interface)
- 
+
     response = {"actions": response_actions}
     return json.dumps(response)
- 
- 
+
 #
 # This code is only if you want to test it from bash - this isn't used when invoked from SRL
 #
@@ -51,12 +49,12 @@ def main():
             "value":"6"
         },
         {
-            "path":"network-instance mac-vrf_10 bridge-table statistics active-entries",
+            "path":"interface ethernet-1/2 subinterface 10  bridge-table statistics active-entries",
             "value":"6"
         }
     ],
     "options": {
-        "max-entries":5,
+        "max-entries":3,
         "debug": "true"
     },
     "persistent-data": {"last-state":"up"}
@@ -64,6 +62,6 @@ def main():
 """
     json_response = event_handler_main(example_in_json_str)
     print(f"Response JSON:\n{json_response}")
- 
+
 if __name__ == "__main__":
-    sys.exit(main())%           
+    sys.exit(main())
