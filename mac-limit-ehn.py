@@ -1,13 +1,9 @@
 import sys
 import json
  
-def count_active_entries(paths):
-    return int(paths.get("active-entries", 0 ))
- 
 def get_max_entries(options):
     return int(options.get("max-entries", 1))
- 
- 
+
 # main entry function for event handler
 def event_handler_main(in_json_str):
     # parse input json string passed by event handler
