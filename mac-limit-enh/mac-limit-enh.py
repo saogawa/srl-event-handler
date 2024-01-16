@@ -47,7 +47,7 @@ def event_handler_main(in_json_str):
         # If both "active-entries" and "maximum-entries" are in the dictionary
         if "active-entries" in values and "maximum-entries" in values:
             # If the number of active entries is greater than the maximum entries
-            if values["active-entries"] > values["maximum-entries"]:
+            if values["active-entries"] >= values["maximum-entries"]:
                 response_actions.append(
                     {
                         "set-cfg-path": {
