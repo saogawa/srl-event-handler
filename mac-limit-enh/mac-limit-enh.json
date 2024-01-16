@@ -7,7 +7,6 @@
           "admin-state": "enable",
           "upython-script": "mac-limit-enh.py",
           "paths": [
-            ",",
             "interface ethernet-1/{1..48} subinterface * bridge-table bridge-table mac-limit maximum-entries",
             "interface ethernet-1/{1..48} subinterface * bridge-table statistics active-entries"
           ]
