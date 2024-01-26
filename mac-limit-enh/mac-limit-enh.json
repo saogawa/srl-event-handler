@@ -5,12 +5,9 @@
         {
           "name": "mac-limit-enh",
           "admin-state": "enable",
-          "upython-script": "mac-limit-enh.py",
+          "upython-script": "mac-limit-enh-ehs.py",
           "paths": [
-            "interface ethernet-1/* subinterface * bridge-table mac-limit maximum-entries",
-            "interface ethernet-1/* subinterface * bridge-table statistics active-entries",
-            "interface ethernet-1/*/* subinterface * bridge-table mac-limit maximum-entries",
-            "interface ethernet-1/*/* subinterface * bridge-table statistics active-entries"
+            "/interface mgmt0 statistics in-packets"
           ]
         }
       ]
