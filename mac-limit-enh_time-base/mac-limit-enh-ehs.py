@@ -9,6 +9,16 @@ def event_handler_main(in_json_str):
 
     response_actions = []
 
+# Will add a condition to compare the periodic execution time after compare between end-time and current-datatime.
+#
+#[2024-01-30 12:57:39.480862]: update /system/event-handler/instance[name=mac-limit-enh]/last-execution/end-time:2024-01-30T03:55:28.923Z
+#^CCommand execution aborted : 'monitor on-change /system event-handler instance mac-limit-enh last-execution end-time '
+#--{ + candidate shared default }--[ system event-handler instance mac-limit-enh ]--
+#A:D5-core1# monitor on-change /system information current-datetime
+#[2024-01-30 12:57:41.969677]: update /system/information/current-datetime:2024-01-30T03:57:41.273Z
+#[2024-01-30 12:57:42.273007]: update /system/information/current-datetime:2024-01-30T03:57:42.272Z
+
+
     response_actions.append(
       {
         "run-script": {
