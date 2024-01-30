@@ -1,16 +1,19 @@
 {
-  "system": {
-    "event-handler": {
-      "instance": [
-        {
-          "name": "mac-limit-enh",
-          "admin-state": "enable",
-          "upython-script": "mac-limit-enh-ehs.py",
-          "paths": [
-            "/interface mgmt0 statistics in-packets"
-          ]
-        }
-      ]
+    "system": {
+      "event-handler": {
+        "instance": [
+          {
+            "name": "mac-limit-enh",
+            "admin-state": "enable",
+            "upython-script": "mac-limit-enh.py",
+            "paths": [
+              "interface ethernet-1/* subinterface * bridge-table mac-limit maximum-entries",
+              "interface ethernet-1/* subinterface * bridge-table statistics active-entries",
+              "interface ethernet-1/*/* subinterface * bridge-table mac-limit maximum-entries",
+              "interface ethernet-1/*/* subinterface * bridge-table statistics active-entries"
+            ]
+          }
+        ]
+      }
     }
-  }
 }

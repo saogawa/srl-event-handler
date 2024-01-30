@@ -1,0 +1,16 @@
+{
+  "system": {
+    "event-handler": {
+      "instance": [
+        {
+          "name": "mac-limit-enh",
+          "admin-state": "enable",
+          "upython-script": "mac-limit-enh-ehs.py",
+          "paths": [
+            "/interface mgmt0 statistics in-packets"
+          ]
+        }
+      ]
+    }
+  }
+}
