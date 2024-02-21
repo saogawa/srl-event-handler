@@ -1,0 +1,9 @@
+set / system
+set / system event-handler
+set / system event-handler instance lag-mem-admin-disable
+set / system event-handler instance lag-mem-admin-disable admin-state enable
+set / system event-handler instance lag-mem-admin-disable upython-script lag-mem-admin-disable.py
+set / system event-handler instance lag-mem-admin-disable paths [ "interface lag* lag member * oper-state" "interface lag{1..24} admin-state" ]
+set / system event-handler instance lag-mem-admin-disable options
+set / system event-handler instance lag-mem-admin-disable options object debug
+set / system event-handler instance lag-mem-admin-disable options object debug value true
