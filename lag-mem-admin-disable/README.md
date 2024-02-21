@@ -8,7 +8,7 @@ This Python code for an event handler improves the behaviour of LAG interfaces i
 - In SR-OS, admin disabling the LAG interface causes the member ports to be disabled and the optical laser to stop. Arista implements similar behaviour.
 
 ### Issue:
-Since the physical ports are not blocked, the optical lasers of the ports continue to transmit, requiring the peer device to detect the link down using LACP or BFD.
+Since the physical ports are not disabled, the optical lasers of the ports continue to transmit, requiring the peer device to detect the link down using LACP or BFD.
 
 ### Code implementation improvements:
 - When the LAG interface is admin disabled, the physical ports (not just the LAG member port status) have their operating status set to down. This stops the optical lasers of the physical ports, allowing immediate link down detection by the peer device.
