@@ -16,5 +16,5 @@ Since the physical ports are not blocked, the optical lasers of the ports contin
 
 ### Limitations:
 - To correctly obtain the admin-state of LAG interfaces, the configuration needs to be created so that each event-handler instance supports a maximum of 25 ports for LAG interfaces.
-  (It is possible to adapt to LAG interfaces with more than 25 ports by creating multiple instances.)
+  (It is possible to adapt to LAG interfaces with more than 25 ports by creating multiple instances. The EH instance can be created up to 20)
 
