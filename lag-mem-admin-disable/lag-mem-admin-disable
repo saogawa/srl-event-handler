@@ -1,0 +1,25 @@
+{
+  "system": {
+    "event-handler": {
+      "instance": [
+        {
+          "name": "lag-mem-admin-disable",
+          "admin-state": "enable",
+          "upython-script": "lag-mem-admin-disable.py",
+          "paths": [
+            "interface lag* lag member * oper-state",
+            "interface lag{1..24} admin-state"
+          ],
+          "options": {
+            "object": [
+              {
+                "name": "debug",
+                "value": "true"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
