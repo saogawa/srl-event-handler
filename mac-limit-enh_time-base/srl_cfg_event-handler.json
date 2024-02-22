@@ -5,7 +5,7 @@
         {
           "name": "mac-limit-enh",
           "admin-state": "enable",
-          "upython-script": "mac-limit-enh-ehs.py",
+          "upython-script": "run-script-eh.py",
           "paths": [
             "/interface mgmt0 statistics in-packets"
           ]
