@@ -9,7 +9,7 @@ This repository shares use cases for Event-Handlers in SR-Linux.
 
 ## License
 
-This project is licensed under the BSD License 
+This project is licensed under the Apache License
 
 ### Redistribution and Use
 
