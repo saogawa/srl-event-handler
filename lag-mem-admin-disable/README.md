@@ -1,20 +1,19 @@
+# SR-Linux LAG Interface Management Event Handler
 
-# Event Handler for SR-Linux LAG Interface Management
+This Python-based event handler enhances the management of LAG interfaces in SR-Linux by addressing operational state behavior discrepancies during administrative enable/disable actions.
 
-This Python code for an event handler improves the behaviour of LAG interfaces in SR-Linux as follows:
+## Overview
 
-### Current behaviour:
-- When the LAG interface is admin disabled, SR-Linux sets the operational state of LAG member ports to down. However, the operational state of the member ports remains up.
-- In SR-OS, admin disabling the LAG interface causes the member ports to be disabled and the optical laser to stop. Arista implements similar behaviour.
+### Current Behavior
+- **Admin Disable**: SR-Linux marks LAG member ports as down, but their operational state remains up.
+- **Comparison**: In SR-OS and Arista devices, disabling a LAG interface also disables its member ports and stops the optical laser.
 
-### Issue:
-Since the physical ports are not disabled, the optical lasers of the ports continue to transmit, requiring the peer device to detect the link down using LACP or BFD.
+### Problem
+The operational state of physical ports remains up when a LAG interface is admin disabled, causing the optical lasers to continue transmitting. This requires peer devices to rely on LACP or BFD for link down detection.
 
-### Code implementation improvements:
-- When the LAG interface is admin disabled, the physical ports (not just the LAG member port status) have their operating status set to down. This stops the optical lasers of the physical ports, allowing immediate link down detection by the peer device.
-- When the LAG interface is Admin-enabled, the operation status of the member ports is set to operation up.
+## Improvements
+- **Admin Disable**: Sets the operating status of physical ports to down, stopping the optical lasers and allowing immediate link down detection by peer devices.
+- **Admin Enable**: Sets the operation status of member ports to up.
 
-### Limitations:
-- To correctly obtain the admin state of LAG interfaces, the configuration must be set up so that each event handler instance supports a maximum of 25 ports for LAG interfaces.
-  (It is possible to accommodate LAG interfaces with more than 25 ports by creating multiple instances. The EH instance can be created up to 20).
-
+## Limitations
+- Supports a maximum of 25 ports per LAG interface. For more than 25 ports, multiple instances of the event handler can be created, with a limit of up to 20 instances.
