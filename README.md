@@ -5,7 +5,7 @@ This repository shares use cases for Event-Handlers in SR-Linux.
 ## Usage
 
 - **Lab Use**: Usage in lab environments is generally free of charge.
-- **Commercial Use**: If you intend to use these scripts in a commercial setting, please contact Nokia staff to ensure you receive appropriate support.
+- **Commercial Use**: If you intend to use these scripts in a commercial setting, please use with their own risk. If you need Nokia care support, please contact Nokia staff to ensure you receive appropriate support.
 
 ## License
 
