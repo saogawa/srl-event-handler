@@ -2,7 +2,7 @@
 
 This repository offers scripts and configurations to improve MAC limit event management in SRLinux, focusing on detecting and addressing MAC address table overflows by automatically shutting down the affected subinterfaces.
 ## Preassumption
-- This script uses only python modules supported in SR-Linux v23.7.2.
+- This script uses only python modules supported in SR-Linux v23.7/v23.10.
 ~~~bash
 root@D5-core1:~# pip list
 Package            Version
