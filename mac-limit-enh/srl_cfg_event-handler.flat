@@ -10,4 +10,4 @@ set / system event-handler instance mac-limit-enh options object debug value tru
 set / system event-handler instance mac-limit-enh options object interval
 set / system event-handler instance mac-limit-enh options object interval value 30
 set / system event-handler instance mac-limit-enh options object script
-set / system event-handler instance mac-limit-enh options object script value "/usr/bin/python3 /etc/opt/srlinux/eventmgr/mac-limit-enh.py"
+set / system event-handler instance mac-limit-enh options object script value "/usr/bin/python3 /opt/srlinux/eventmgr/mac-limit-enh.py"
