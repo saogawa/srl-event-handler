@@ -5,10 +5,26 @@
         {
           "name": "mac-limit-enh",
           "admin-state": "enable",
-          "upython-script": "run-script-eh.py",
+          "upython-script": "run-script.py",
           "paths": [
-            "/interface mgmt0 statistics in-packets"
-          ]
+            "system information current-datetime"
+          ],
+          "options": {
+            "object": [
+              {
+                "name": "debug",
+                "value": "true"
+              },
+              {
+                "name": "interval",
+                "value": "30"
+              },
+              {
+                "name": "script",
+                "value": "/usr/bin/python3 /etc/opt/srlinux/eventmgr/mac-limit-enh.py"
+              }
+            ]
+          }
         }
       ]
     }
