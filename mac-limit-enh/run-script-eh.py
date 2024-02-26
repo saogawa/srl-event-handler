@@ -49,10 +49,8 @@ def event_handler_main(in_json_str):
     time_difference = calculate_time_difference(current_time, last_run_time)
 
     interval = int(options["interval"])
-    if not 1 <= interval <= 59:
-        raise ValueError("Interval must be within the range of 1-59.")
-
     script = options["script"]
+    
     response_actions = []
     response_persistent_data = []
 
