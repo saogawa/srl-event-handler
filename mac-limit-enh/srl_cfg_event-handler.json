@@ -21,7 +21,7 @@
               },
               {
                 "name": "script",
-                "value": "/usr/bin/python3 /etc/opt/srlinux/eventmgr/mac-limit-enh.py"
+                "value": "/usr/bin/python3 /opt/srlinux/eventmgr/mac-limit-enh.py"
               }
             ]
           }
