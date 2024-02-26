@@ -16,9 +16,9 @@ This repository contains a set of scripts and configurations designed to enhance
 
 1. **Logging Configuration:** The system is configured to log MAC limit events to a specific file, as defined in `srl_cfg_logging-file.json`.
 
-2. **Event Handling:** The `run-script-eh.py` script is periodically executed to check for new MAC limit events. It uses the configuration specified in `srl_cfg_event-handler.json` to determine when to run.
+2. **Event Handling:** The `run-script-eh.py` script is periodically executed a specified external script. It uses the configuration specified in `srl_cfg_event-handler.json` to determine when to run.
 
-3. **MAC Limit Enforcement:** Upon detecting a MAC limit event, `mac-limit-enh.py` is triggered. This script then proceeds to shut down the affected subinterface to prevent any further issues related to MAC address overflow.
+3. **MAC Limit Enforcement:** Upon detecting a MAC limit event, `mac-limit-enh.py` is triggered periodicaly. This script then proceeds to check for new MAC limit events and shut down the affected subinterface to prevent any further issues related to MAC address overflow.
 
 ## Setup and Configuration
 
