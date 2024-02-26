@@ -22,6 +22,9 @@ This repository offers scripts and configurations to improve MAC limit event man
     5. **Log Modification:** The script modifies the original log line to indicate that the subinterface has been shut down due to exceeding the MAC limit. This new line replaces the original in the list of lines to be written back to the log file.
     6. **Write Back to Log File:** Finally, the modified list of lines (including the updated entries) is written back to the log file, effectively updating it with the actions taken by the script.
 
+![diagram(4)](https://github.com/saogawa/srl-event-handler/assets/35554139/66a7502a-f6ce-4055-9d8d-1de3881045bd)
+
+
 
 ## Setup and Configuration
 
