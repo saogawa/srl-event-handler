@@ -4,8 +4,23 @@ This repository offers scripts and configurations to improve MAC limit event man
 
 ## Components
 
-- **[mac-limit-enh.py](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/mac-limit-enh.py):** Automates the detection and shutdown of subinterfaces exceeding MAC address limits.
-- **[run-script-eh.py](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/run-script-eh.py):** Acts as an event handler, triggering `mac-limit-enh.py` under specific conditions.
+- **[mac-limit-enh.py](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/mac-limit-enh.py):
+    1. **Read Log File:** It starts by opening and reading a log file (`/var/log/srlinux/file/mac-limit`) line by line, where MAC limit events are logged.
+    2. **Detect MAC Limit Events:** It searches each line for patterns indicating that the MAC address limit has been reached for a subinterface. This is done using regular expressions to match specific log entries.
+    3. **Parse Interface Details:** Upon finding a matching entry, it extracts the interface and subinterface details from the log line.
+    4. **Shutdown Subinterface:** It constructs a command to shut down the identified subinterface by setting its administrative state to disable. This command is then executed using the system call.
+    5. **Log Modification:** The script modifies the original log line to indicate that the subinterface has been shut down due to exceeding the MAC limit. This new line replaces the original in the list of lines to be written back to the log file.
+    6. **Write Back to Log File:** Finally, the modified list of lines (including the updated entries) is written back to the log file, effectively updating it with the actions taken by the script.
+
+- **[run-script-eh.py](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/run-script-eh.py):
+    1. **Calculate Time Difference:** It calculates the time difference between the current time and the last run time of the script. This involves parsing timestamps and converting them to seconds for comparison.
+    2. **Read Input JSON:** The script reads an input JSON string, which includes paths, options (such as the interval between runs and the script to execute), and persistent data (like the last run time).
+    3. **Determine Execution:** Based on the calculated time difference and the specified interval, it decides whether to execute the `mac-limit-enh.py` script. If the time difference is greater than or equal to the interval, the script is triggered.
+    4. **Update Persistent Data:** It updates the persistent data with the current time as the new "last run time," ensuring that subsequent runs can calculate the correct time difference.
+    5. **Generate Response:** The script generates a JSON response that includes actions to be taken (such as running the specified script) and the updated persistent data. This response can be used to trigger the actual execution of the `mac-limit-enh.py` script and to log the event handler's activity.
+
+
+
 - **[srl_cfg_event-handler.json](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/srl_cfg_event-handler.json):** Configures the event handler in SRLinux, detailing the instance, state, and executable script.
 - **[srl_cfg_logging-file.json](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/srl_cfg_logging-file.json):** Sets logging parameters in SRLinux for capturing MAC limit events.
 
