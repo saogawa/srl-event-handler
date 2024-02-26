@@ -27,7 +27,7 @@ This repository offers scripts and configurations to improve MAC limit event man
 ## How It Works
 
 1. **Logging Configuration:** Configures system logging to capture MAC limit events.
-2. **Event Handling:** Executes `run-script-eh.py` to periodically check and trigger `mac-limit-enh.py`.
+2. **Event Handling:** Executes `run-script-eh.py` to check the interval periodically and trigger `mac-limit-enh.py`.
 3. **MAC Limit Enforcement:** `mac-limit-enh.py` identifies and shuts down subinterfaces reaching MAC address limits.
 
 ## Setup and Configuration
