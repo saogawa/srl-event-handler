@@ -1,0 +1,9 @@
+set / system
+set / system logging
+set / system logging file mac-limit
+set / system logging file mac-limit rotate 3
+set / system logging file mac-limit size 1000000
+set / system logging file mac-limit filter [ mac-limit ]
+set / system logging file mac-limit facility all
+set / system logging file mac-limit facility all priority
+set / system logging file mac-limit facility all priority match-above warning
