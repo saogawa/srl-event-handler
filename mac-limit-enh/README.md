@@ -54,7 +54,7 @@ This repository offers scripts and configurations to improve MAC limit event man
                               value 30
                           }
                           object script {
-                              value "/usr/bin/python3 /etc/opt/srlinux/eventmgr/mac-limit-enh.py"
+                              value "/usr/bin/python3 /opt/srlinux/eventmgr/mac-limit-enh.py"
                           }
                       }
                   }
