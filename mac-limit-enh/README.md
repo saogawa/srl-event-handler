@@ -1,4 +1,4 @@
-# SRL Event Handler: MAC Limit Enhancement
+# SR-Linux Event Handler: MAC Limit Enhancement
 
 This repository offers scripts and configurations to improve MAC limit event management in SRLinux, focusing on detecting and addressing MAC address table overflows by automatically shutting down the affected subinterfaces.
 ## Preassumption
