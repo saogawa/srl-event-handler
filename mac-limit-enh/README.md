@@ -125,8 +125,56 @@ A:D5-core1# info from running /system logging file mac-limit
 
 To deploy this enhancement:
 
-1. Install the scripts in the designated directory on your SRLinux system.
-2. Apply the provided JSON configurations.
-3. Verify the event handler and logging setups are correctly capturing and managing MAC limit events.
+1. Download the following files:
+   - [run-script.py](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/run-script.py)
+   - [mac-limit-enh.py](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/mac-limit-enh.py)
 
-This approach automates responses to MAC address table overflows, enhancing network stability and reliability.
+2. Copy the files to the following folder and set permissions:
+
+```bash
+chmod 777 /opt/srlinux/eventmgr/mac-limit-enh.py
+chown root:root /opt/srlinux/eventmgr/mac-limit-enh.py
+chmod 777 /opt/srlinux/eventmgr/run-script.py
+chown root:root /opt/srlinux/eventmgr/run-script.py
+```
+
+3. Apply the following configuration:
+
+   - [srl_cfg_event-handler.flat](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/srl_cfg_event-handler.flat)
+   - [srl_cfg_logging-file.flat](https://github.com/saogawa/srl-event-handler/blob/main/mac-limit-enh/srl_cfg_logging-file.flat)
+
+4. Ensure that the log file has been generated:
+
+```bash
+root@D2L:/# ls -lt /var/log/srlinux/file/mac-limit
+-rw-rw-r--+ 1 syslog adm 163 Feb 27 15:16 /var/log/srlinux/file/mac-limit
+```
+
+5. Confirm there are no errors in the Event-Handler:
+
+```bash
+--{ +* candidate shared default }--[  ]--
+A:D2L# info from state /system event-handler instance mac-limit-enh last-errored-execution
+--{ +* candidate shared default }--[  ]--
+A:D2L#
+```
+
+*If errors are outputted, please send the following log:
+```bash
+info from state /system event-handler
+```
+
+6. Set the mac-limit for SubIF:
+
+```bash
+A:D2L# /interface ethernet-1/1 subinterface 10 bridge-table mac-limit maximum-entries <1-8192>
+A:D2L# /interface ethernet-1/1 subinterface 10 bridge-table mac-limit warning-threshold-pct 100 maximum-entries
+```
+
+*Specifying 8192 will not shutdown the SubIF. (MAC learning will not occur, but communication will continue)
+
+7. The maximum number of MAC addresses for SubIF is checked periodically through polling. The interval can be tuned with the following value:
+
+```bash
+A:D2L# /system event-handler instance mac-limit-enh options object interval value 60
+```
