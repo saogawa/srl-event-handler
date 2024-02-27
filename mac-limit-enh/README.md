@@ -171,7 +171,7 @@ A:D2L# /interface ethernet-1/1 subinterface 10 bridge-table mac-limit maximum-en
 A:D2L# /interface ethernet-1/1 subinterface 10 bridge-table mac-limit warning-threshold-pct 100 maximum-entries
 ```
 
-*Specifying 8192 will not shutdown the SubIF. (MAC learning will not occur, but communication will continue)
+*If you want not to disable the SubIF. please specify the value of 8192. The mac-limit-en.py will not shutdown the SubIF. (MAC learning will not occur, but communication will continue)
 
 7. The maximum number of MAC addresses for SubIF is checked periodically through polling. The interval can be tuned with the following value:
 
