@@ -36,30 +36,30 @@ This repository offers scripts and configurations to improve MAC limit event man
 ## How It Works : SRL Event-Handler configuration
 
 ~~~bash
-    --{ + running }--[  ]--
-    A:D5-core1# info from running /system event-handler
-        system {
-            event-handler {
-                instance mac-limit-enh {
-                    admin-state enable
-                    upython-script run-script.py
-                    paths [
-                        "system information current-datetime"
-                    ]
-                    options {
-                        object debug {
-                            value true
-                        }
-                        object interval {
-                            value 30
-                        }
-                        object script {
-                            value "/usr/bin/python3 /etc/opt/srlinux/eventmgr/mac-limit-enh.py"
-                        }
-                    }
-                }
-            }
-        }
+      --{ + running }--[  ]--
+      A:D5-core1# info from running /system event-handler
+          system {
+              event-handler {
+                  instance mac-limit-enh {
+                      admin-state enable
+                      upython-script run-script.py
+                      paths [
+                          "system information current-datetime"
+                      ]
+                      options {
+                          object debug {
+                              value true
+                          }
+                          object interval {
+                              value 30
+                          }
+                          object script {
+                              value "/usr/bin/python3 /etc/opt/srlinux/eventmgr/mac-limit-enh.py"
+                          }
+                      }
+                  }
+              }
+          }
 ~~~
 
 ## How It Works : run-script-eh.py
