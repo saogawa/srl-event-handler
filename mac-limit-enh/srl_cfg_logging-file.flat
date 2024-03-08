@@ -1,5 +1,5 @@
-set / system
-set / system logging
+set / system logging filter mac-limit
+set / system logging filter mac-limit regex "The number of MAC addresses in the bridge table for the sub-interface"
 set / system logging file mac-limit
 set / system logging file mac-limit rotate 3
 set / system logging file mac-limit size 1000000
