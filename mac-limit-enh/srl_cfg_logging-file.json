@@ -1,6 +1,14 @@
 {
   "system": {
     "logging": {
+      "subsystem-facility": "auth",
+      "network-instance": "mgmt",
+      "filter": [
+        {
+          "filter-name": "mac-limit",
+          "regex": "The number of MAC addresses in the bridge table for the sub-interface"
+        }
+      ],
       "file": [
         {
           "file-name": "mac-limit",
