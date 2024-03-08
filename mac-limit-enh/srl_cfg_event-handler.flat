@@ -1,6 +1,3 @@
-set / system
-set / system event-handler
-set / system event-handler instance mac-limit-enh
 set / system event-handler instance mac-limit-enh admin-state enable
 set / system event-handler instance mac-limit-enh upython-script run-script.py
 set / system event-handler instance mac-limit-enh paths [ "system information current-datetime" ]
