@@ -1,1 +1,8 @@
-
+set / system event-handler instance eh-reload admin-state enable
+set / system event-handler instance eh-reload upython-script eh-reload.py
+set / system event-handler instance eh-reload paths [ "system configuration last-change" ]
+set / system event-handler instance eh-reload options
+set / system event-handler instance eh-reload options object debug
+set / system event-handler instance eh-reload options object debug value false
+set / system event-handler instance eh-reload options object instance
+set / system event-handler instance eh-reload options object instance values [ lag-mem-admin-disable ]
