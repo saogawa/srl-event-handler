@@ -39,6 +39,10 @@ def event_handler_main(in_json_str):
         print(f"{log_file_path} does not exist.")
         sys.exit()
 
+    response_actions.append({
+        "reinvoke-with-delay": 5000
+    })
+
     # For each interface, add a set-ephemeral-path action to the response actions
     for interface in interface_list:
         # Split the interface into interface name and subinterface
