@@ -1,129 +1,85 @@
 # Importing necessary libraries
 import sys
 import json
-import re
 import os
+import re
 
-# Function to check MAC limit log
-def check_mac_limit_log():
-    # Creating a set to store unique interfaces
-    interfaces = set()
+# Main function to handle events
+def event_handler_main(in_json_str):
 
-    # Defining the log file path
-    log_file_path = './logs/mac-limit'
-    temp_file_path = './logs/mac-limit.temp'
+    # Log file to read from /etc/opt/srlinux/eventmgr
+    log_file_path = 'mac-limit'
 
-    # Checking if the log file exists
+    # Set to store unique interfaces
+    interface_list = set()
+    # List to store response actions
+    response_actions = []
+
+    # Pattern to match in the log file
+    pattern = r"The number of MAC addresses in the bridge table for the sub-interface (\S+) has reached the allowed limit of"
+
     try:
-        os.stat(log_file_path)
+        # Open the log file in read mode
+        with open(log_file_path, 'r') as file:
+            lines = file.readlines()
+        # Open the log file in write mode
+        with open(log_file_path, 'w') as file:
+            for line in lines:
+                # Search for the pattern in each line
+                match = re.search(pattern, line)
+                # If match found and interface_list size is less than 100, add the interface to the list
+                if match and len(interface_list) < 100:
+                    interface_list.add(match.group(1))
+                else:
+                    # If no match found, write the line back to the file
+                    file.write(line)
+
+    # If file does not exist, print error message and exit
     except OSError:
         print(f"{log_file_path} does not exist.")
         sys.exit()
 
-    # Checking if the temporary file exists, if not, create one
-    try:
-        os.stat(temp_file_path)
-    except OSError:
-        open(temp_file_path, 'w').close()
-
-    # Regular expression pattern to extract interface names from the log
-    pattern = r"The number of MAC addresses in the bridge table for the sub-interface (\S+) has reached the allowed limit of"
-
-    # Opening the log file and temporary file
-    with open(log_file_path, 'r') as read_file, open(temp_file_path, 'w') as write_file:
-        # Reading each line in the log file
-        for line in read_file:
-            # Searching for the pattern in each line
-            match = re.search(pattern, line)
-            # If the pattern is found, extract the interface name and add it to the set
-            if match:
-                interface_name = match.group(1)
-                interfaces.add(interface_name)
-                continue  
-            # If the pattern is not found, write the line to the temporary file
-            write_file.write(line)  
-
-    # Replacing the original log file with the temporary file
-    os.replace(temp_file_path, log_file_path)
-
-    # Return the list of unique interface names
-    return(list(interfaces))
-
-
-# Main event handler function
-def event_handler_main(in_json_str):
-    """
-    Main handler function that processes input JSON string and determines
-    if a specified script should be executed based on the time interval.
-    """
-    # Loading the JSON string
-    in_json = json.loads(in_json_str)
-    paths = in_json["paths"]
-    options = in_json["options"]
-    persist = in_json.get("persistent-data", [{}])
-    persist = persist[0] if persist else [{}]
-
-    # Checking the MAC limit log and getting the list of interfaces
-    interface_list = check_mac_limit_log()
-
-    # Getting the debug and interval options
-    debug = options.get('debug', None)
-    interval = options.get('interval', None)
-    print(interval)
-    
-    # Initializing the response actions and persistent data
-    response_actions = []
-    response_persistent_data = []
-
-    # Adding the reinvoke-with-delay action to the response actions
-    response_actions.append({'reinvoke-with-delay' : int(interval)*1000})
     # For each interface, add a set-ephemeral-path action to the response actions
     for interface in interface_list:
+        # Split the interface into interface name and subinterface
         interface_name, subinterface = interface.split('.')
+        # Append the action to the response actions list
         response_actions.append({
-            "set-ephemeral-path": {
+            "set-cfg-path": {
                 "always-execute": True,
                 "path": f"interface {interface_name} subinterface {subinterface} admin-state",
                 "value": "disable",
             }
         })
 
-    # Creating the response dictionary
-    response = {'actions': response_actions, 'persistent-data': response_persistent_data}
-
-    # If debug is true, print debug information
-    if debug == "true":
-        print("Debug Information:")
-        print(f"Paths: {paths}")
-        print(f"Options: {options}")              
+    # Initialize response dictionary
+    response = { }
+    # Add actions to the response
+    response = {'actions': response_actions}
 
     # Return the response as a JSON string
     return json.dumps(response)
 
-# Test function for event_handler_main with example JSON input
+    # Initialize response dictionary
+    response = {}  
+    # Return the response as a JSON string
+    return json.dumps(response)
+
+# Main function
 def main():
+    # Example JSON string
     example_in_json_str = """
 {
-    "paths": [
-      "system information current-datetime"
-    ],
+    "paths": [ ],
     "options": {
-      "debug": "true",
-      "interval": "1"
-    },
-    "persistent-data": [
-        {
-            "last_run_time": "2024-02-26T14:36:09"
-        }
-    ]
+      "object": [{}]
+    }
 }
 """
-
-    # Running the event handler main function with the example JSON string
+    # Call the event handler function and print the response
     json_response = event_handler_main(example_in_json_str)
-    # Printing the response JSON
     print(f"Response JSON:\n{json_response}")
 
-# If the script is run directly, execute the main function
+# If this script is run directly, call the main function
 if __name__ == "__main__":
     sys.exit(main())
