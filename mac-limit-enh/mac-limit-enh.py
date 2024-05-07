@@ -40,7 +40,7 @@ def event_handler_main(in_json_str):
         sys.exit()
 
     response_actions.append({
-        "reinvoke-with-delay": 5000
+        "reinvoke-with-delay": 1000
     })
 
     # For each interface, add a set-ephemeral-path action to the response actions
