@@ -1,6 +1,2 @@
 set / system event-handler instance mac-limit-enh admin-state enable
 set / system event-handler instance mac-limit-enh upython-script mac-limit-enh.py
-set / system event-handler instance mac-limit-enh options object debug
-set / system event-handler instance mac-limit-enh options object debug value true
-set / system event-handler instance mac-limit-enh options object interval
-set / system event-handler instance mac-limit-enh options object interval value 1
