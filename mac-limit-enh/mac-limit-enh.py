@@ -58,7 +58,6 @@ def event_handler_main(in_json_str):
     # Initialize response dictionary
     response = { }
     # Add actions to the response
-    print(len(response_actions))
     response = {'actions': response_actions}
 
     # Return the response as a JSON string
