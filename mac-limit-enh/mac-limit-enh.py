@@ -28,12 +28,11 @@ def event_handler_main(in_json_str):
                 # Search for the pattern in each line
                 match = re.search(pattern, line)
                 # If match found and interface_list size is less than 100, add the interface to the list
-                if match and len(interface_list) < 100:
+                if match and len(interface_list) < 99:
                     interface_list.add(match.group(1))
                 else:
                     # If no match found, write the line back to the file
                     file.write(line)
-
     # If file does not exist, print error message and exit
     except OSError:
         print(f"{log_file_path} does not exist.")
@@ -59,6 +58,7 @@ def event_handler_main(in_json_str):
     # Initialize response dictionary
     response = { }
     # Add actions to the response
+    print(len(response_actions))
     response = {'actions': response_actions}
 
     # Return the response as a JSON string
