@@ -36,7 +36,7 @@ def event_handler_main(in_json_str):
     # If file does not exist, print error message and exit
     except OSError:
         print(f"{log_file_path} does not exist.")
-        sys.exit()
+        sys.exit(1)
 
     response_actions.append({
         "reinvoke-with-delay": 1000
@@ -63,26 +63,39 @@ def event_handler_main(in_json_str):
     # Return the response as a JSON string
     return json.dumps(response)
 
-    # Initialize response dictionary
-    response = {}  
-    # Return the response as a JSON string
-    return json.dumps(response)
-
 # Main function
+#
+# This code is only if you want to test it from bash - this isn't used when invoked from SRL
+#
 def main():
-    # Example JSON string
     example_in_json_str = """
 {
-    "paths": [ ],
+    "paths": [
+        {
+            "path": "interface ethernet-1/49 oper-status",
+            "value": "up"
+        },
+        {
+            "path": "interface ethernet-1/50 oper-status",
+            "value": "down"
+        }
+    ],
     "options": {
-      "object": [{}]
+        "required-up-uplinks": 1,
+        "down-links": [
+            "ethernet-1/1",
+            "ethernet-1/2"
+        ],
+        "hold-down-time": "5000",
+        "debug": "true"
+    },
+    "persistent-data": {
+        "last-state": "down"
     }
-}
-"""
-    # Call the event handler function and print the response
+}"""
     json_response = event_handler_main(example_in_json_str)
     print(f"Response JSON:\n{json_response}")
 
-# If this script is run directly, call the main function
+
 if __name__ == "__main__":
     sys.exit(main())
