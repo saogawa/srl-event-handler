@@ -1,0 +1,3 @@
+set / system event-handler instance mac-dup-enh admin-state enable
+set / system event-handler instance mac-dup-enh upython-script mac-dup-enh.py
+set / system event-handler instance mac-dup-enh paths [ "/network-instance * bridge-table mac-duplication duplicate-entries mac * destination" ]
