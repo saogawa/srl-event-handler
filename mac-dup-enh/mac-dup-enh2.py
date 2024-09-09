@@ -1,6 +1,5 @@
 import sys
 import json
-import time
 
 # The main entry function for the event handler
 def event_handler_main(in_json_str):
@@ -15,10 +14,15 @@ def event_handler_main(in_json_str):
 
     network_instance_name = None
     for path in paths:
-        if "network-instance" in path["path"] and "bridge-table" in path["path"] and "mac-duplication" in path["path"]:
-            network_instance_name = path["path"].split(" ")[1]
+        if "network-instance" in path["path"] and "bridge-table" in path["path"]:
+            # Split the path and find the network instance name
+            path_parts = path["path"].split(" ")
+            for i, part in enumerate(path_parts):
+                if part == "network-instance":
+                    network_instance_name = path_parts[i + 1]
+                    break
 
-    time.sleep(3)
+    print(f"Network instance name: {network_instance_name}")
     response_actions = []
 
     if network_instance_name is not None:
@@ -41,13 +45,17 @@ def main():
 {
     "paths": [
         {
-            "path": "network-instance mac-vrf10 bridge-table mac-duplication duplicate-entries mac 00:10:10:00:00:01 destination",
-            "value": "blackhole"
+            "path": "network-instance mac-vrf10 bridge-table statistics mac-type duplicate active-entries",
+            "value": "1"
         }
     ],
     "options": {
-        "debug": "true"
+        "debug": "false"
     }
 }
 """
+    json_response = event_handler_main(example_in_json_str)
+    print(f"Response JSON:\n{json_response}")
 
+if __name__ == "__main__":
+    sys.exit(main())
