@@ -12,26 +12,24 @@ def event_handler_main(in_json_str):
     if options.get("debug") == "true":
         print(paths)
 
-    network_instance_name = None
+    network_instance_names = []
     for path in paths:
-        if "network-instance" in path["path"] and "bridge-table" in path["path"]:
-            # Split the path and find the network instance name
-            path_parts = path["path"].split(" ")
-            for i, part in enumerate(path_parts):
-                if part == "network-instance":
-                    network_instance_name = path_parts[i + 1]
-                    break
+        if "network-instance" in path["path"]:
+            network_instance_name = path["path"].split(" ")[1]
+            network_instance_names.append(network_instance_name)
 
-    print(f"Network instance name: {network_instance_name}")
+    print(f"Network instance name: {network_instance_names}")
     response_actions = []
 
-    if network_instance_name is not None:
-        response_actions.append({
-            "set-tools-path": {
-                "path": f"network-instance {network_instance_name} bridge-table mac-duplication delete-macs-type",
-                "value": "all"
-            }
-        })
+    if network_instance_names is not None:
+        for network_instance_name in network_instance_names:
+            response_actions.append({
+                "set-tools-path": {
+                    "path": f"network-instance {network_instance_name} bridge-table mac-duplication delete-macs-type",
+                    "value": "all"
+                }
+            })
+
     # If the debug option is set to true, print the response actions
     if options.get("debug") == "true":
         print(response_actions)
@@ -47,10 +45,18 @@ def main():
         {
             "path": "network-instance mac-vrf10 bridge-table statistics mac-type duplicate active-entries",
             "value": "1"
+        },
+        {
+            "path": "network-instance mac-vrf20 bridge-table statistics mac-type duplicate active-entries",
+            "value": "1"
+        },
+        {
+            "path": "network-instance mac-vrf30 bridge-table statistics mac-type duplicate active-entries",
+            "value": "1"
         }
     ],
     "options": {
-        "debug": "false"
+        "debug": "true"
     }
 }
 """
