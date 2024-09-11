@@ -1,5 +1,6 @@
 import sys
 import json
+import os
 
 # The main entry function for the event handler
 def event_handler_main(in_json_str):
@@ -13,8 +14,7 @@ def event_handler_main(in_json_str):
         print(paths)
 
     # Execute the sr_cli command and parse the output
-    command = 'sr_cli -s "info /network-instance * bridge-table statistics mac-type duplicate active-entries | as json"'
-    result = os.popen(command).read()
+    result = 'sr_cli -s "info /network-instance * bridge-table statistics mac-type duplicate active-entries | as json"'
     result_json = json.loads(result)
 
     # Iterate through the network instances and check active-entries
@@ -48,7 +48,7 @@ def event_handler_main(in_json_str):
             })
 
     response_actions.append({
-        "reinvoke-with-delay": 5000
+        "reinvoke-with-delay": 1000
     })
 
     # If the debug option is set to true, print the response actions
