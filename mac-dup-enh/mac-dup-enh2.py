@@ -8,9 +8,7 @@ def event_handler_main(in_json_str):
     paths = in_json["paths"]
     options = in_json["options"]
 
-    # If the debug option is set to true, print the paths
-    if options.get("debug") == "true":
-        print(paths)
+    print(f"Paths: {paths}")
 
     network_instance_names = []
     for path in paths:
@@ -31,8 +29,7 @@ def event_handler_main(in_json_str):
             })
 
     # If the debug option is set to true, print the response actions
-    if options.get("debug") == "true":
-        print(response_actions)
+    print(response_actions)
 
     response = {"actions": response_actions}
     return json.dumps(response)
