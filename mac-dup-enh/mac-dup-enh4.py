@@ -48,7 +48,7 @@ def event_handler_main(in_json_str):
             })
 
     response_actions.append({
-        "reinvoke-with-delay": 1000
+        "reinvoke-with-delay": 5000
     })
 
     # If the debug option is set to true, print the response actions
