@@ -1,6 +1,5 @@
 import sys
 import json
-import subprocess
 
 # The main entry function for the event handler
 def event_handler_main(in_json_str):
@@ -13,9 +12,18 @@ def event_handler_main(in_json_str):
     if options.get("debug") == "true":
         print(paths)
 
-    # Execute the shell command to get the active entries
-    command = 'sr_cli -s "info /network-instance * bridge-table statistics mac-type duplicate active-entries"'
-    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    # Execute the sr_cli command and parse the output
+    command = 'sr_cli -s "info /network-instance * bridge-table statistics mac-type duplicate active-entries | as json"'
+    result = os.popen(command).read()
+    result_json = json.loads(result)
+
+    # Iterate through the network instances and check active-entries
+    for instance in result_json["network-instance"]:
+        active_entries = int(instance["bridge-table"]["statistics"]["mac-type"][0]["active-entries"])
+        if active_entries != 0:
+            network_instance_names.append(instance["name"])
+
+
 
     # Initialize the list to store network instance names
     network_instance_names = []
