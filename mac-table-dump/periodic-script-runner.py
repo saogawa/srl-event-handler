@@ -16,7 +16,7 @@ def event_handler_main(in_json_str):
     response_actions = []
 
     response_actions.append({
-        "reinvoke-with-delay": 10000
+        "reinvoke-with-delay": int(options["interval"])
     })
 
     response_actions.append({
@@ -47,7 +47,8 @@ def main():
     ],
     "options": {
         "debug": "true",
-        "script": "/usr/bin/python3 /etc/opt/srlinux/eventmgr/dump_cron.py"
+        "interval": "10000",
+        "script": "/usr/bin/python3 /etc/opt/srlinux/eventmgr/mac-table-dump.py"
     }
 }
 """
