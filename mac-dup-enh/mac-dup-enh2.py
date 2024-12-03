@@ -13,7 +13,12 @@ def event_handler_main(in_json_str):
 
     network_instance_names = []
     for path in paths:
-        if "network-instance" in path["path"] and "bridge-table" in path["path"] and "statistics" in path["path"] and "mac-type" in path["path"] and "duplicate" in path["path"] and "active-entries" in path["path"]:
+        if ("network-instance" in path["path"] and 
+            "bridge-table" in path["path"] and 
+            "statistics" in path["path"] and 
+            "mac-type" in path["path"] and 
+            "duplicate" in path["path"] and 
+            "active-entries" in path["path"]):
             if int(path["value"]) != 0:
                 network_instance_names.append(path["path"].split(" ")[1])
 
