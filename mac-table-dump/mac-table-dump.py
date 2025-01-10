@@ -41,7 +41,16 @@ def main():
         "sr_cli --output-format json 'info from state /network-instance * bridge-table mac-table'"
     ]
     max_files = 10
-    execute_commands_and_save_output(file_path, commands, max_files)
+
+    # Run the command execution in a separate process to avoid blocking
+    pid = os.fork()
+    if pid == 0:
+        # Child process
+        execute_commands_and_save_output(file_path, commands, max_files)
+        os._exit(0)
+    else:
+        # Parent process
+        print("Command execution started in the background.")
 
 if __name__ == "__main__":
     main()
