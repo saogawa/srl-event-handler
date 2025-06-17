@@ -40,7 +40,7 @@ def main():
         "sr_cli --output-format json 'info from state /interface * | filter subinterface fields oper-state oper-down-reason'",
         "sr_cli --output-format json 'info from state /network-instance * bridge-table mac-table'"
     ]
-    max_files = 10
+    max_files = 672
 
     # Run the command execution in a separate process to avoid blocking
     pid = os.fork()
