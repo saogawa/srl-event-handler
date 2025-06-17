@@ -1,5 +1,5 @@
 set / system event-handler instance mac-table-dump admin-state enable
 set / system event-handler instance mac-table-dump upython-script periodic-script-runner.py
 set / system event-handler instance mac-table-dump options object debug value true
-set / system event-handler instance mac-table-dump options object interval value 60000
+set / system event-handler instance mac-table-dump options object interval value 1800000
 set / system event-handler instance mac-table-dump options object script value "/usr/bin/python3 /etc/opt/srlinux/eventmgr/mac-table-dump.py"
