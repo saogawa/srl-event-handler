@@ -1,0 +1,4 @@
+set / system event-handler instance snmp-rebooter admin-state enable
+set / system event-handler instance snmp-rebooter upython-script snmp-booster.py
+set / system event-handler instance snmp-rebooter options object debug value true
+set / system event-handler instance snmp-rebooter options object interval value 10000
