@@ -32,12 +32,10 @@ You can use `snmp-booster` as a standalone module or as part of the `srl-event-h
 ## Configuration
 
 Configuration options (if any) can be set via environment variables or configuration files. Please refer to the code or configuration examples for details.
-    
-    ```sh
+
     set / system event-handler instance snmp-rebooter admin-state enable
     set / system event-handler instance snmp-rebooter upython-script snmp-booster.py
     set / system event-handler instance snmp-rebooter options object interval value 5000
-    ```
     
 ## Development
 
